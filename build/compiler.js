@@ -45,6 +45,9 @@ function getStatsLogger({dir, logger, env}) {
       return;
     }
 
+    logger.info('***stats output 01***');
+    logger.info(stats.toString('verbose'));
+
     const file = path.resolve(dir, '.fusion/stats.json');
     const info = stats.toJson({context: path.resolve(dir)});
     fs.writeFile(file, JSON.stringify(info, null, 2), () => {});
