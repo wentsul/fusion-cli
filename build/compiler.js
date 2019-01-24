@@ -45,9 +45,9 @@ function getStatsLogger({dir, logger, env}) {
       return;
     }
 
-    logger.info('***stats output 02***');
+    logger.info('***stats output 03***');
 
-    const debug = stats.toJson();
+    const debug = stats.toJson('verbose');
     if (stats.hasErrors()) {
       logger.info(`Stats Errors: ${JSON.stringify(debug.errors)}`);
     } else {
@@ -55,7 +55,7 @@ function getStatsLogger({dir, logger, env}) {
     }
 
     if (stats.hasWarnings()) {
-      logger.info(`Stats Warnings: ${debug.warnings}`);
+      logger.info(`Stats Warnings: ${JSON.stringify(debug.warnings)}`);
     } else {
       logger.info('Stats: No warnings');
     }
