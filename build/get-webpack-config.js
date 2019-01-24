@@ -436,7 +436,7 @@ function getWebpackConfig(opts /*: WebpackConfigOpts */) {
             translationsManifestContextKey,
             state.i18nManifest
           ),
-      !dev && zopfliWebpackPlugin,
+      // !dev && zopfliWebpackPlugin,
       !dev && brotliWebpackPlugin,
       !dev && svgoWebpackPlugin,
       // In development, skip the emitting phase on errors to ensure there are
