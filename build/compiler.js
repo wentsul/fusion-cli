@@ -45,11 +45,12 @@ function getStatsLogger({dir, logger, env}) {
       return;
     }
 
-    logger.info('***stats output 04***');
+    logger.info('***stats output 06***');
 
     const debug = stats.toJson('verbose');
     if (stats.hasErrors()) {
       logger.info(`Stats Errors: ${JSON.stringify(debug.errors)}`);
+      logger.info(JSON.stringify(debug, null, 2));
     } else {
       logger.info('Stats: No errors');
     }
