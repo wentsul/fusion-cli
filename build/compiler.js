@@ -45,15 +45,19 @@ function getStatsLogger({dir, logger, env}) {
       return;
     }
 
-    logger.info('***stats output 01***');
-    logger.info(stats.toString('verbose'));
-    const debug = stats.toJson('verbose');
+    logger.info('***stats output 02***');
+
+    const debug = stats.toJson();
     if (stats.hasErrors()) {
-      logger.info(`Stats Errors: ${debug.errors}`);
+      logger.info(`Stats Errors: ${JSON.stringify(debug.errors)}`);
+    } else {
+      logger.info('Stats: No errors');
     }
 
     if (stats.hasWarnings()) {
       logger.info(`Stats Warnings: ${debug.warnings}`);
+    } else {
+      logger.info('Stats: No warnings');
     }
 
     const file = path.resolve(dir, '.fusion/stats.json');
@@ -61,7 +65,9 @@ function getStatsLogger({dir, logger, env}) {
     fs.writeFile(file, JSON.stringify(info, null, 2), () => {});
 
     if (stats.hasErrors()) {
+      logger.info('Dedupping stats errors: start');
       dedupeErrors(info.errors).forEach(e => logger.error(e));
+      logger.info('Dedupping stats errors: done');
     }
     // TODO(#13): These logs seem to be kinda noisy for dev.
     if (isProd) {
@@ -82,7 +88,9 @@ function getStatsLogger({dir, logger, env}) {
       });
     }
     if (stats.hasWarnings()) {
+      logger.info('Dedupping stats warnings: start');
       dedupeErrors(info.warnings).forEach(e => logger.warn(e));
+      logger.info('Dedupping stats warnings: done');
     }
   };
 }

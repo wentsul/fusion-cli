@@ -40,6 +40,9 @@ exports.run = async function(
   await new Promise((resolve, reject) => {
     compiler.start((err, stats) => {
       if (err || stats.hasErrors()) {
+        const info = stats.toJson();
+        logger.info('Stats error from build');
+        logger.info(JSON.stringify(info.errors));
         return reject(err || new Error('Compiler stats included errors.'));
       }
       return resolve();
