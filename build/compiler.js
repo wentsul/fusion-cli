@@ -45,7 +45,7 @@ function getStatsLogger({dir, logger, env}) {
       return;
     }
 
-    logger.info('***stats output 03***');
+    logger.info('***stats output 04***');
 
     const debug = stats.toJson('verbose');
     if (stats.hasErrors()) {
@@ -150,26 +150,10 @@ function Compiler(
   const sharedOpts = {dir: root, watch, state, fusionConfig, legacyPkgConfig};
 
   const dev = env === 'development';
-  const compiler = webpack(
-    [
-      getWebpackConfig({id: 'client-modern', dev, ...sharedOpts}),
-      getWebpackConfig({id: 'server', dev, ...sharedOpts}),
-    ],
-    (err, stats) => {
-      logger.info('multi compiler callback called');
-      if (err) {
-        logger.info(`error returned: ${JSON.stringify(err)}`);
-      }
-      const info = stats.toJson('verbose');
-      if (stats.hasErrors()) {
-        logger.info(`Errors: ${JSON.stringify(info.errors)}`);
-      }
-
-      if (stats.hasWarnings()) {
-        logger.info(`warnings: ${JSON.stringify(info.warnings)}`);
-      }
-    }
-  );
+  const compiler = webpack([
+    getWebpackConfig({id: 'client-modern', dev, ...sharedOpts}),
+    getWebpackConfig({id: 'server', dev, ...sharedOpts}),
+  ]);
 
   const statsLogger = getStatsLogger({dir, logger, env});
 
