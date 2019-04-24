@@ -113,9 +113,10 @@ const SSRBodyTemplate = createPlugin/*:: <SSRBodyTemplateDepsType,SSRBodyTemplat
         let preloadHints = [];
 
         for (let url of criticalChunkUrls) {
-          const crossoriginAttr = url.startsWith(__webpack_public_path__)
-            ? ''
-            : ' crossorigin="anonymous"';
+          // const crossoriginAttr = url.startsWith(__webpack_public_path__)
+          //   ? ''
+          //   : ' crossorigin="anonymous"';
+          const crossoriginAttr = ' crossorigin="anonymous"';
           preloadHints.push(
             `<link rel="preload" href="${url}" nonce="${
               ctx.nonce
